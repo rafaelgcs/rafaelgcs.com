@@ -12,6 +12,7 @@ import {
   useTheme
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import React from 'react';
 
 const ListWrapper = styled(List)(
   () => `
@@ -67,7 +68,7 @@ function LanguagesOverview() {
       <ListWrapper disablePadding>
         {technologiesList.map((t) => {
           return (
-            <>
+            <React.Fragment key={`${t}_technologies-List`}>
               <ListItem
                 sx={{
                   color: `${theme.colors.primary.main}`,
@@ -78,7 +79,7 @@ function LanguagesOverview() {
                 <ListItemText primary={t} />
               </ListItem>
               <Divider />
-            </>
+            </React.Fragment>
           );
         })}
         <ListSubheader>
@@ -88,7 +89,7 @@ function LanguagesOverview() {
         </ListSubheader>
         {socialList.map((s) => {
           return (
-            <>
+            <React.Fragment key={`${s.title}__social-List`}>
               <Divider />
               <ListItem
                 button
@@ -107,7 +108,7 @@ function LanguagesOverview() {
                   primary={s.title}
                 />
               </ListItem>
-            </>
+            </React.Fragment>
           );
         })}
       </ListWrapper>

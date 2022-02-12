@@ -16,7 +16,6 @@ import {
   useTheme
 } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
 
 import ProfileCover from './ProfileCover';
 import Footer from '../../../components/Footer';
@@ -55,7 +54,13 @@ const urlsList = [
   }
 ];
 
-const urlsCustomersList = [];
+const urlsCustomersList = [
+  {
+    title: 'Customer Area',
+    url: '/ca',
+    initials: 'CA'
+  }
+];
 
 function LandingPage() {
   const user = {
@@ -116,12 +121,18 @@ function LandingPage() {
         >
           <Box
             sx={{
-              width: 350
+              width: 250
             }}
             role="presentation"
             onClick={toggleDrawer}
             onKeyDown={toggleDrawer}
           >
+            <ListSubheader>
+              <Typography sx={{ py: 1.5 }} variant="h4" color="text.primary">
+                Menu
+              </Typography>
+            </ListSubheader>
+            <Divider />
             <List>
               {urlsList.map((s, index) => (
                 <Link
@@ -153,6 +164,42 @@ function LandingPage() {
                 </Link>
               ))}
             </List>
+            <Divider />
+            <ListSubheader>
+              <Typography sx={{ py: 1.5 }} variant="h4" color="text.primary">
+                For Customers
+              </Typography>
+            </ListSubheader>
+            <Divider />
+            {urlsCustomersList.map((s, index) => (
+              <Link
+                key={`url_list_drawer-${index}`}
+                to={s.url}
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button>
+                  <ListItemAvatar>
+                    <Avatar
+                      sx={{
+                        width: 38,
+                        height: 38,
+                        background: `${theme.colors.info.main}`,
+                        color: `${theme.palette.info.contrastText}`
+                      }}
+                    >
+                      {s.title[0]}
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primaryTypographyProps={{
+                      variant: 'h5',
+                      color: `${theme.colors.alpha.black[100]}`
+                    }}
+                    primary={s.title}
+                  />
+                </ListItem>
+              </Link>
+            ))}
             {/* <List>
               {urlsList.map((t) => {
                 return (
