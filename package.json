@@ -1,11 +1,11 @@
 {
-  "name": "tokyo-free-black-react-admin-dashboard",
-  "version": "1.1.0",
-  "title": "Tokyo Free Black React Admin Dashboard",
-  "description": "Tokyo Free Black React Admin Dashboard is built using the latest industry standards and features a clean and premium design style, making use of colors and accents to improve the user experience for all included flows and pages.",
+  "name": "rafaelgcs.com",
+  "version": "1.0.0",
+  "title": "Rafael Guimarães - Website",
+  "description": "Desenvolvedor Full Stack - Com foco em desenvolvimento WEB e Mobile Utilizando tecnologias como Flutter, React e Angular.",
   "author": {
-    "name": "BloomUI.com",
-    "url": "https://bloomui.com"
+    "name": "Rafael Guimarães",
+    "url": "https://rafaelgcs.com"
   },
   "private": false,
   "dependencies": {

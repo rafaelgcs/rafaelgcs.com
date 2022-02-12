@@ -21,11 +21,11 @@ function Footer() {
         >
           <Box>
             <Typography variant="subtitle1">
-              &copy; 2021 - Tokyo Free Black React Admin Dashboard
+              &copy; 2022 - Rafael Guimarães
             </Typography>
           </Box>
           <Typography sx={{ pt: { xs: 2, md: 0 } }} variant="subtitle1">
-            Crafted by <Link href="https://bloomui.com" target="_blank" rel="noopener noreferrer">BloomUI.com</Link>
+            Created by <Link href="https://rafaelgcs.com" target="_blank" rel="noopener noreferrer">Rafael GCS</Link> Using <Link href="https://material-ui.com/store/items/tokyo-react-admin-dashboard/" target="_blank" rel="noopener noreferrer">Tokyo Free Black</Link>
           </Typography>
         </Box>
       </Container>

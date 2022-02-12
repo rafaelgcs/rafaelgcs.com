@@ -13,6 +13,10 @@ const Loader = (Component) => (props) => (
   </Suspense>
 );
 
+// Landing Page
+
+const LandingPage = Loader(lazy(() => import('src/content/landing/LandingPage')));
+
 // Pages
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
@@ -56,16 +60,11 @@ const routes: PartialRouteObject[] = [
     children: [
       {
         path: '/',
-        element: <Overview />
+        element: <LandingPage />
       },
       {
         path: 'overview',
-        element: (
-          <Navigate
-            to="/"
-            replace
-          />
-        )
+        element: <Overview />
       },
       {
         path: 'status',
