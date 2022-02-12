@@ -3,19 +3,43 @@ import { Navigate } from 'react-router-dom';
 import { PartialRouteObject } from 'react-router';
 
 import SidebarLayout from 'src/layouts/SidebarLayout';
+import PanelLayout from 'src/layouts/PanelLayout';
+// import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 
-const Loader = (Component) => (props) => (
-  <Suspense fallback={<SuspenseLoader />}>
-    <Component {...props} />
-  </Suspense>
-);
+import { panel as authPanel } from 'src/services/auth';
+
+const Loader = (Component) => (props) =>
+  (
+    <Suspense fallback={<SuspenseLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 // Landing Page
 
-const LandingPage = Loader(lazy(() => import('src/content/landing/LandingPage')));
+const LandingPage = Loader(
+  lazy(() => import('src/content/landing/LandingPage'))
+);
+
+// AUTHs
+
+const PanelAuthenticatedPage = ({ component: Component, initial }) =>
+  authPanel.panelIsAuthenticated() ? (
+    <>
+      <Component />
+    </>
+  ) : (
+    <Navigate to={{ pathname: `/${initial}/login` }} />
+  );
+
+// Panel
+
+const LoginPanel = Loader(
+  lazy(() => import('src/content/panel/auth_pages/Login'))
+);
 
 // Pages
 
@@ -27,31 +51,57 @@ const Tasks = Loader(lazy(() => import('src/content/dashboards/Tasks')));
 
 // Applications
 
-const Messenger = Loader(lazy(() => import('src/content/applications/Messenger')));
-const Transactions = Loader(lazy(() => import('src/content/applications/Transactions')));
-const UserProfile = Loader(lazy(() => import('src/content/applications/Users/profile')));
-const UserSettings = Loader(lazy(() => import('src/content/applications/Users/settings')));
+const Messenger = Loader(
+  lazy(() => import('src/content/applications/Messenger'))
+);
+const Transactions = Loader(
+  lazy(() => import('src/content/applications/Transactions'))
+);
+const UserProfile = Loader(
+  lazy(() => import('src/content/applications/Users/profile'))
+);
+const UserSettings = Loader(
+  lazy(() => import('src/content/applications/Users/settings'))
+);
 
 // Components
 
-const Buttons = Loader(lazy(() => import('src/content/pages/Components/Buttons')));
-const Modals = Loader(lazy(() => import('src/content/pages/Components/Modals')));
-const Accordions = Loader(lazy(() => import('src/content/pages/Components/Accordions')));
+const Buttons = Loader(
+  lazy(() => import('src/content/pages/Components/Buttons'))
+);
+const Modals = Loader(
+  lazy(() => import('src/content/pages/Components/Modals'))
+);
+const Accordions = Loader(
+  lazy(() => import('src/content/pages/Components/Accordions'))
+);
 const Tabs = Loader(lazy(() => import('src/content/pages/Components/Tabs')));
-const Badges = Loader(lazy(() => import('src/content/pages/Components/Badges')));
-const Tooltips = Loader(lazy(() => import('src/content/pages/Components/Tooltips')));
-const Avatars = Loader(lazy(() => import('src/content/pages/Components/Avatars')));
+const Badges = Loader(
+  lazy(() => import('src/content/pages/Components/Badges'))
+);
+const Tooltips = Loader(
+  lazy(() => import('src/content/pages/Components/Tooltips'))
+);
+const Avatars = Loader(
+  lazy(() => import('src/content/pages/Components/Avatars'))
+);
 const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
 const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
 
-
 // Status
 
-const Status404 = Loader(lazy(() => import('src/content/pages/Status/Status404')));
-const Status500 = Loader(lazy(() => import('src/content/pages/Status/Status500')));
-const StatusComingSoon = Loader(lazy(() => import('src/content/pages/Status/ComingSoon')));
-const StatusMaintenance = Loader(lazy(() => import('src/content/pages/Status/Maintenance')));
-
+const Status404 = Loader(
+  lazy(() => import('src/content/pages/Status/Status404'))
+);
+const Status500 = Loader(
+  lazy(() => import('src/content/pages/Status/Status500'))
+);
+const StatusComingSoon = Loader(
+  lazy(() => import('src/content/pages/Status/ComingSoon'))
+);
+const StatusMaintenance = Loader(
+  lazy(() => import('src/content/pages/Status/Maintenance'))
+);
 
 const routes: PartialRouteObject[] = [
   {
@@ -71,12 +121,7 @@ const routes: PartialRouteObject[] = [
         children: [
           {
             path: '/',
-            element: (
-              <Navigate
-                to="404"
-                replace
-              />
-            )
+            element: <Navigate to="404" replace />
           },
           {
             path: '404',
@@ -93,29 +138,22 @@ const routes: PartialRouteObject[] = [
           {
             path: 'coming-soon',
             element: <StatusComingSoon />
-          },
+          }
         ]
       },
       {
         path: '*',
         element: <Status404 />
-      },
+      }
     ]
   },
   {
     path: 'dashboards',
-    element: (
-      <SidebarLayout />
-    ),
+    element: <SidebarLayout />,
     children: [
       {
         path: '/',
-        element: (
-          <Navigate
-            to="/dashboards/tasks"
-            replace
-          />
-        )
+        element: <Navigate to="/dashboards/tasks" replace />
       },
       {
         path: 'tasks',
@@ -129,18 +167,11 @@ const routes: PartialRouteObject[] = [
   },
   {
     path: 'management',
-    element: (
-      <SidebarLayout />
-    ),
+    element: <SidebarLayout />,
     children: [
       {
         path: '/',
-        element: (
-          <Navigate
-            to="/management/transactions"
-            replace
-          />
-        )
+        element: <Navigate to="/management/transactions" replace />
       },
       {
         path: 'transactions',
@@ -151,12 +182,7 @@ const routes: PartialRouteObject[] = [
         children: [
           {
             path: '/',
-            element: (
-              <Navigate
-                to="details"
-                replace
-              />
-            )
+            element: <Navigate to="details" replace />
           },
           {
             path: 'details',
@@ -165,25 +191,18 @@ const routes: PartialRouteObject[] = [
           {
             path: 'settings',
             element: <UserSettings />
-          },
+          }
         ]
       }
     ]
   },
   {
     path: 'components',
-    element: (
-      <SidebarLayout />
-    ),
+    element: <SidebarLayout />,
     children: [
       {
         path: '/',
-        element: (
-          <Navigate
-            to="/components/buttons"
-            replace
-          />
-        )
+        element: <Navigate to="/components/buttons" replace />
       },
       {
         path: 'buttons',
@@ -220,7 +239,46 @@ const routes: PartialRouteObject[] = [
       {
         path: 'forms',
         element: <Forms />
+      }
+    ]
+  },
+  {
+    path: 'panel',
+    element: <PanelLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="/panel/tasks" replace />
       },
+
+      {
+        path: 'login',
+        element: <Navigate to="/login/panel" replace />
+      },
+      {
+        path: 'tasks',
+        element: <PanelAuthenticatedPage component={Tasks} initial={'panel'} />
+      },
+      {
+        path: 'transactions',
+        element: (
+          <PanelAuthenticatedPage component={Transactions} initial={'panel'} />
+        )
+      }
+    ]
+  },
+  {
+    path: 'login',
+    element: <BaseLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="/" replace />
+      },
+      {
+        path: 'panel',
+        element: <LoginPanel />
+      }
     ]
   }
 ];

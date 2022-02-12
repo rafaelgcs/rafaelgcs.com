@@ -16,7 +16,6 @@ import {
   useTheme
 } from '@mui/material';
 
-
 import ProfileCover from './ProfileCover';
 import Footer from '../../../components/Footer';
 import LanguagesOverview from './LanguagesOverview';
@@ -59,6 +58,11 @@ const urlsCustomersList = [
     title: 'Customer Area',
     url: '/ca',
     initials: 'CA'
+  },
+  {
+    title: "Rafael's Panel",
+    url: '/panel',
+    initials: 'RP'
   }
 ];
 
