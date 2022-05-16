@@ -2,7 +2,6 @@ import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { PartialRouteObject } from 'react-router';
 
-import SidebarLayout from 'src/layouts/SidebarLayout';
 import PanelLayout from 'src/layouts/PanelLayout';
 // import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
@@ -40,10 +39,12 @@ const PanelAuthenticatedPage = ({ component: Component, initial }) =>
 const LoginPanel = Loader(
   lazy(() => import('src/content/panel/auth_pages/Login'))
 );
-
-// Pages
-
-const Overview = Loader(lazy(() => import('src/content/overview')));
+const PanelHomePage = Loader(
+  lazy(() => import('src/content/panel/pages/HomePage'))
+);
+const PanelUserProfilePage = Loader(
+  lazy(() => import('src/content/panel/pages/Profile'))
+);
 
 // Dashboards
 
@@ -57,36 +58,6 @@ const Messenger = Loader(
 const Transactions = Loader(
   lazy(() => import('src/content/applications/Transactions'))
 );
-const UserProfile = Loader(
-  lazy(() => import('src/content/applications/Users/profile'))
-);
-const UserSettings = Loader(
-  lazy(() => import('src/content/applications/Users/settings'))
-);
-
-// Components
-
-const Buttons = Loader(
-  lazy(() => import('src/content/pages/Components/Buttons'))
-);
-const Modals = Loader(
-  lazy(() => import('src/content/pages/Components/Modals'))
-);
-const Accordions = Loader(
-  lazy(() => import('src/content/pages/Components/Accordions'))
-);
-const Tabs = Loader(lazy(() => import('src/content/pages/Components/Tabs')));
-const Badges = Loader(
-  lazy(() => import('src/content/pages/Components/Badges'))
-);
-const Tooltips = Loader(
-  lazy(() => import('src/content/pages/Components/Tooltips'))
-);
-const Avatars = Loader(
-  lazy(() => import('src/content/pages/Components/Avatars'))
-);
-const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
-const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
 
 // Status
 
@@ -104,6 +75,7 @@ const StatusMaintenance = Loader(
 );
 
 const routes: PartialRouteObject[] = [
+  // Website
   {
     path: '*',
     element: <BaseLayout />,
@@ -111,10 +83,6 @@ const routes: PartialRouteObject[] = [
       {
         path: '/',
         element: <LandingPage />
-      },
-      {
-        path: 'overview',
-        element: <Overview />
       },
       {
         path: 'status',
@@ -148,116 +116,46 @@ const routes: PartialRouteObject[] = [
     ]
   },
   {
-    path: 'dashboards',
-    element: <SidebarLayout />,
+    path: 'panel',
+    element: <PanelLayout />,
     children: [
       {
         path: '/',
-        element: <Navigate to="/dashboards/tasks" replace />
+        element: (
+          <PanelAuthenticatedPage component={PanelHomePage} initial={'panel'} />
+        )
       },
       {
-        path: 'tasks',
-        element: <Tasks />
-      },
-      {
-        path: 'messenger',
-        element: <Messenger />
-      }
-    ]
-  },
-  {
-    path: 'management',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/management/transactions" replace />
-      },
-      {
-        path: 'transactions',
-        element: <Transactions />
+        path: 'login',
+        element: <Navigate to="/login/panel" replace />
       },
       {
         path: 'profile',
         children: [
           {
             path: '/',
-            element: <Navigate to="details" replace />
+            element: <Navigate to="/profile/details" replace />
           },
           {
             path: 'details',
-            element: <UserProfile />
-          },
-          {
-            path: 'settings',
-            element: <UserSettings />
+            element: (
+              <PanelAuthenticatedPage
+                component={PanelUserProfilePage}
+                initial={'panel'}
+              />
+            )
           }
         ]
-      }
-    ]
-  },
-  {
-    path: 'components',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/components/buttons" replace />
-      },
-      {
-        path: 'buttons',
-        element: <Buttons />
-      },
-      {
-        path: 'modals',
-        element: <Modals />
-      },
-      {
-        path: 'accordions',
-        element: <Accordions />
-      },
-      {
-        path: 'tabs',
-        element: <Tabs />
-      },
-      {
-        path: 'badges',
-        element: <Badges />
-      },
-      {
-        path: 'tooltips',
-        element: <Tooltips />
-      },
-      {
-        path: 'avatars',
-        element: <Avatars />
-      },
-      {
-        path: 'cards',
-        element: <Cards />
-      },
-      {
-        path: 'forms',
-        element: <Forms />
-      }
-    ]
-  },
-  {
-    path: 'panel',
-    element: <PanelLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/panel/tasks" replace />
-      },
-
-      {
-        path: 'login',
-        element: <Navigate to="/login/panel" replace />
       },
       {
         path: 'tasks',
         element: <PanelAuthenticatedPage component={Tasks} initial={'panel'} />
+      },
+      {
+        path: 'messenger',
+        element: (
+          <PanelAuthenticatedPage component={Messenger} initial={'panel'} />
+        )
       },
       {
         path: 'transactions',

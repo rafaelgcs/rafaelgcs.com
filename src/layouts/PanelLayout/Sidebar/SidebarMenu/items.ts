@@ -15,6 +15,9 @@ import RedeemTwoToneIcon from '@mui/icons-material/RedeemTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
 import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
+// import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import MultipleStopIcon from '@mui/icons-material/MultipleStop';
 
 export interface MenuItem {
   link?: string;
@@ -35,8 +38,23 @@ const menuItems: MenuItems[] = [
     items: [
       {
         name: 'Overview',
-        link: '/overview',
+        link: '/panel',
         icon: DesignServicesTwoToneIcon
+      }
+    ]
+  },
+  {
+    heading: 'Financial',
+    items: [
+      {
+        name: 'Balances',
+        link: '/panel/balances',
+        icon: AccountBalanceWalletIcon
+      },
+      {
+        name: 'Transactions',
+        link: '/panel/transactions',
+        icon: MultipleStopIcon
       }
     ]
   },
@@ -52,7 +70,7 @@ const menuItems: MenuItems[] = [
         name: 'Messenger',
         icon: MmsTwoToneIcon,
         link: '/dashboards/messenger'
-      },
+      }
     ]
   },
   {
@@ -127,7 +145,7 @@ const menuItems: MenuItems[] = [
         name: 'Forms',
         icon: TrafficTwoToneIcon,
         link: '/components/forms'
-      },
+      }
     ]
   },
   {

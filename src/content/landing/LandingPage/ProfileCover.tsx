@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 import { Link } from 'react-router-dom';
+import { getRandomImage } from 'src/utils/functions';
 
 const AvatarWrapper = styled(Card)(
   ({ theme }) => `
@@ -63,7 +64,7 @@ const ProfileCover = ({ user, toggleDrawer }) => {
         </Box>
       </Box>
       <CardCover>
-        <CardMedia image={user.coverImg} />
+        <CardMedia image={getRandomImage()} />
       </CardCover>
       <AvatarWrapper>
         <Avatar variant="rounded" alt={user.name} src={user.avatar} />

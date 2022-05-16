@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
@@ -17,10 +17,12 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { userLogin } from '../../../repositories/panel/users';
+import { panel as authPanel } from 'src/services/auth';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -30,6 +32,16 @@ export default function LoginForm() {
     password: Yup.string().required('Password is required')
   });
 
+  const doLogin = async (data, setSubmiting) => {
+    let response = await userLogin(data);
+
+    if (response.success) {
+      navigate('/panel');
+    }
+
+    setSubmiting(false);
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -37,8 +49,8 @@ export default function LoginForm() {
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: (data) => {
-      userLogin(data);
+    onSubmit: (data, func) => {
+      doLogin(data, func.setSubmitting);
     }
   });
 
@@ -49,7 +61,9 @@ export default function LoginForm() {
     setShowPassword((show) => !show);
   };
 
-  return (
+  return authPanel.panelIsAuthenticated() ? (
+    <Navigate to="/panel" />
+  ) : (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>

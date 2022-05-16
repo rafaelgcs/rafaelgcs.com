@@ -6,29 +6,33 @@ const userLogin = async ({ email, password, remember }) => {
     email,
     password
   };
-  let response = await panelApi.post('/auth/login/panel', data);
+  try {
+    let response = await panelApi.post('/panel/auth/login/', data);
 
-  if (response.status === 200 || response.status === 201) {
-    let res = response.data;
+    if (response.status === 200 || response.status === 201) {
+      let res = response.data;
+      console.log(res);
 
-    if (res.success) {
-      let logged = panelAuth.panelLocalLogin(
-        res.user,
-        res.access_token,
-        res.expires_in,
-        remember ? 'true' : 'false'
-      );
+      if (res.success) {
+        let logged = await panelAuth.panelLocalLogin(
+          res.data.user,
+          res.data.api_token,
+          remember ? 'true' : 'false'
+        );
 
-      return {
-        success: logged,
-        error: 'Login Succefully'
-      };
+        return {
+          success: logged,
+          error: 'Login Succefully'
+        };
+      }
+
+      return { success: false, error: "Don't found this user" };
     }
 
-    return { success: false, error: "Don't found this user" };
+    return { success: false, error: 'Email or password wrong' };
+  } catch (_) {
+      return { success: false, error: 'Request Failed'};
   }
-
-  return { success: false, error: 'Request failed' };
 };
 
 export { userLogin };

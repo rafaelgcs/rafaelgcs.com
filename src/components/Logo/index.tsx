@@ -54,9 +54,6 @@ function Logo() {
   return (
     <LogoWrapper to="/">
       <LogoSignWrapper>
-        {/* <LogoSign>
-          <LogoSignInner />
-        </LogoSign> */}
         <Avatar sx={{ width: 80, height: 80 }} src={'/static/images/logo/logo.svg'} />
       </LogoSignWrapper>
       <Hidden smDown>
