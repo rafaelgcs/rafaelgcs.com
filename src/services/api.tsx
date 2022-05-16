@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { panel } from './auth';
 
-const panelUrl = "http://api.rafaelgcs.com";//process.env.REACT_APP_PANEL_URL_API;
+const panelUrl = process.env.REACT_APP_PANEL_URL_API;
 
 const panelApi = axios.create({
   baseURL: panelUrl,
