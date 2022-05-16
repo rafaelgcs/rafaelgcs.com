@@ -72,7 +72,7 @@ function LandingPage() {
     name: 'Rafael Guimarães',
     email: 'contato@rafaelgcs.com',
     coverImg: '/static/images/placeholders/covers/3.jpg',
-    avatar: '/static/images/avatars/me.jpeg',
+    avatar: '/static/images/avatars/default.jpg',
     subtitle: '@rafaelgcs',
     description:
       'Currently studying BI in Science and Technology at UFBA (Federal University of Bahia) being Software Developer (Computer Technician) at SENAI Cimatec and Web Designer at SAGA. \nExperienced Software Developer adept in all stages of advanced web development with focous in front-end. Knowledgeable in user interface, testing, and debugging processes. Bringing forth expertise in design, installation, testing and maintenance of systems. Equipped with a diverse and promising skill-set. Proficient in an assortment of technologies, including JavaScript, ASP.NET, C#, React JS, React Native, Flutter, and others. Able to effectively self-manage during independent projects, as well as collaborate in a team setting.',
